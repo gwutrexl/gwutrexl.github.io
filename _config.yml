@@ -1,2 +1,7 @@
 #theme: jekyll-theme-slate
 remote-theme: mmistakes / minimal-mistakes
+minimal_mistakes_skin: sunrise
+
+title: "John @ GWIT"
+title_separator: "|"
+logo: "/assets/images/serverroomJohn-scaled.jpg"
