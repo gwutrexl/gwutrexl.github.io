@@ -22,8 +22,8 @@ title: john@gwit
 email: trexl@gwu.edu
 description: >- # this means to ignore newlines until "baseurl:"
   Things that might be helpful from one point of view
-baseurl: "gwutrexl.github.io" # the subpath of your site, e.g. /blog
-url: "http://gwutrexl.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: gwutrexl
 
 # Build settings
