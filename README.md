@@ -2,8 +2,8 @@
 
 ```text
 linkedin: linkedin.com/in/johnfhurst
-email: johnhurst@gmail.com
-github: johnfhurst
+email: trexl@gwu.edu
+github: gwutrexl
 ```
 
 **Summary**
