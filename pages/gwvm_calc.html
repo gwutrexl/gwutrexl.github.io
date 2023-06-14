@@ -1,0 +1,115 @@
+<script language="javascript" type="text/javascript">
+function CalcTotal(form)
+    {
+        
+        //Disk Space ========
+        var diskStdVal = (form.diskStd.value * 0.10);
+        var diskHighVal = (form.diskHigh.value * 0.50);
+        document.getElementById('disk_std_val').innerHTML = diskStdVal.toFixed(2)
+        document.getElementById('disk_high_val').innerHTML = diskHighVal.toFixed(2)
+
+        //Cpu ========
+        var cpuCosts = {
+            '1': 49,
+            '2': 49,
+            '4': 49 + 6,
+            '8': 55 + 12,
+            '16': 67 + 24
+          }
+        var cpuVal = cpuCosts[form.cpu.value]
+        document.getElementById('cpu_val').innerHTML = cpuVal;
+        
+            
+        //Ram =====
+        var ramVal = form.ram.value < 2 ? 6 : (form.ram.value * 6) - 6
+        document.getElementById('ram_val').innerHTML = ramVal;
+        
+        //Total Monthly Value ==========
+        var totalMonthVal = cpuVal + ramVal + diskStdVal + diskHighVal
+        document.getElementById('total_month_val').innerHTML = totalMonthVal.toFixed(2)
+     
+        //Total Value ==========
+        document.getElementById('total_val').innerHTML = (totalMonthVal * 12).toFixed(2)
+        
+    }
+    
+    function noenter() {
+        return !(window.event && window.event.keyCode == 13);
+    }
+</script>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>Virtual Server Cost Calculator</title>
+</head>
+
+<body>
+
+<h1 class="page-title" id="title">Virtual Server Cost Calculator</h1><div class="content contentBox"><h3 id="m_title"><span style="font-size: 14px;">Enter server specifications to calculate monthly/annual costs</span></h3>
+<form name="form1" onsubmit="">
+<div style="padding-left: 25px;">
+<table border="0">
+<tbody>
+<tr>
+<td height="35" nowrap="nowrap" valign="middle">
+<div>Server Size</div>
+</td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td valign="middle">
+<div>CPU</div>
+<select name="cpu" onchange="CalcTotal(this.form)" onkeypress="return noenter()">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="4">4</option>
+<option value="8">8</option>
+<option value="16">16</option>
+</select></td>
+<td nowrap="nowrap" valign="right">$ <span id="cpu_val">49</span></td>
+</tr>
+<tr>
+<td valign="middle">
+<div>RAM</div>
+<input id="ram" maxlength="4" min="1" oninput="CalcTotal(this.form)" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()" step="1" style="max-width: 4em;" type="number" value="1"/> GB</td>
+<td nowrap="nowrap" valign="right">$ <span id="ram_val">6</span></td>
+</tr>
+<tr>
+<td valign="middle">
+<div>Disk Storage: <br/>Standard Tier</div>
+<input id="diskStd" maxlength="4" min="1" oninput="CalcTotal(this.form)" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()" size="4" style="max-width: 4em;" type="number" value=""/> GB</td>
+<td nowrap="nowrap" valign="right">$ <span id="disk_std_val">0.00</span></td>
+</tr>
+<tr>
+<td valign="middle">
+<div>Disk Storage: <br/>Archive Tier</div>
+<input id="diskHigh" maxlength="4" min="1" oninput="CalcTotal(this.form)" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()" size="4" style="max-width: 4em;" type="number" value=""/> GB</td>
+<td nowrap="nowrap" valign="right">$ <span id="disk_high_val">0.00</span></td>
+</tr>
+<tr>
+<td valign="middle">Monthly Virtual Server Cost:</td>
+<td nowrap="nowrap" valign="right">$ <span id="total_month_val">55.00</span></td>
+</tr>
+<tr>
+<td valign="middle">Annual Virtual Server Cost:</td>
+<td nowrap="nowrap" valign="right">$ <span id="total_val">660.00</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</form><hr/>
+<p>Your Virtual Server includes 24x7 support for the virtual infrastructure, generator-backed power and other benefits of Data Center hosting and operating-system licenses for Windows Server.</p>
+<p>This cost does not include optional services like data backups or server management.</p>
+<p>For a comprehensive quote that includes these services, please contact the <a href="../get-help/index.html">ITS Support Center</a>.</p>
+<hr/>
+<p><strong>To help you with your disk sizing:</strong></p>
+<p>The DCO Windows group has a standard 50G OS disk and a 2-10G pagefile disk (depending on the memory size). They recommend production servers have these OS disks on the high-performance tier.</p>
+<p>The DCO Unix team generally starts with a 40G OS and swap space, depending on the operating system in use. All disks are generally placed on the standard-performance tier unless high-perf is requested.</p>
+<p>For any OS, application data is not housed on the OS disk and should be on separate virtual disk(s). These disks can be on either the standard or high performance tiers.</p>
+<p>Workloads with more than 4 vCPU configured are available based on demonstrated resource need. Your workload will perform better with higher utilization of less vCPU than idle of many vCPU. Please feel free to reach out to the virtual hosting team to "right size" your servers.</p>
+</div>
+            
+</div>
+
+</body>
+</html>
