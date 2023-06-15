@@ -1,0 +1,27 @@
+.header {
+    background-color: #033C5A;
+    color: #AA9868;
+    text-align: center;
+    padding: 10px;
+}
+
+.footer {
+    background-color: #033C5A;
+    color: #AA9868;
+    text-align: center;
+    padding: 10px;
+}
+
+.info {
+    background-color: lightgray;
+    color: black;
+    padding: 5px;
+}
+
+.tableheader {
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+
+/* background-color: ; */
