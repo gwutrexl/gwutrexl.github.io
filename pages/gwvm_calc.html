@@ -1,42 +1,45 @@
 <script language="javascript" type="text/javascript">
-function CalcTotal(form)
-    {
-        
-        //Disk Space ========
-        var diskStdVal = (form.diskStd.value * 0.10);
-        var diskHighVal = (form.diskHigh.value * 0.50);
-        document.getElementById('disk_std_val').innerHTML = diskStdVal.toFixed(2)
-        document.getElementById('disk_high_val').innerHTML = diskHighVal.toFixed(2)
+                                                    function CalcTotal(form) {
+        // disk standard tier - .10 / GB / mo
+        // disk archive tier - .05/ GB / mo
+        // CPU - 5.25 / vcpu / mo
+        // Mem - .51 / GB / mo
 
+        //Disk Space & RAM ========
+        var diskStdVal = (form.diskStd.value * 0.10);
+                                                    var ramVal = (form.ram.value * 0.51);
+                                                    var diskArchVal = (form.diskArch.value * 0.05);
+                                                    document.getElementById('disk_std_val').innerHTML = diskStdVal.toFixed(2);
+                                                    document.getElementById('disk_arch_val').innerHTML = diskArchVal.toFixed(2);
+                                                    document.getElementById('ram_val').innerHTML = ramVal.toFixed(2);
         //Cpu ========
         var cpuCosts = {
-            '1': 49,
-            '2': 49,
-            '4': 49 + 6,
-            '8': 55 + 12,
-            '16': 67 + 24
-          }
+            '1': 5.25,
+            '2': 10.50,
+            '4': 21,
+            '8': 42,
+            '16': 84
+        }
         var cpuVal = cpuCosts[form.cpu.value]
         document.getElementById('cpu_val').innerHTML = cpuVal;
-        
-            
-        //Ram =====
-        var ramVal = form.ram.value < 2 ? 6 : (form.ram.value * 6) - 6
-        document.getElementById('ram_val').innerHTML = ramVal;
-        
+
+
+        // //Ram =====
+        // var ramVal = form.ram.value < 2 ? 6 : (form.ram.value * 6) - 6
+        // document.getElementById('ram_val').innerHTML = ramVal;
+
         //Total Monthly Value ==========
-        var totalMonthVal = cpuVal + ramVal + diskStdVal + diskHighVal
-        document.getElementById('total_month_val').innerHTML = totalMonthVal.toFixed(2)
-     
+                                                    var totalMonthVal = cpuVal + ramVal + diskStdVal + diskArchVal
+                                                    document.getElementById('total_month_val').innerHTML = totalMonthVal.toFixed(2)
         //Total Value ==========
-        document.getElementById('total_val').innerHTML = (totalMonthVal * 12).toFixed(2)
-        
+                                                    document.getElementById('total_val').innerHTML = (totalMonthVal * 12).toFixed(2)
     }
     
     function noenter() {
         return !(window.event && window.event.keyCode == 13);
     }
 </script>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
@@ -66,13 +69,14 @@ function CalcTotal(form)
                     <option value="4">4</option>
                     <option value="8">8</option>
                     <option value="16">16</option>
-                </select>
+                    </select>
                 </td>
-                <td nowrap="nowrap" valign="right">
-                    $ <span id="cpu_val">49</span>
+                <td nowrap="nowrap" align="right">
+                    $ <span id="cpu_val">5.25</span>
                 </td>
                 <td>
-                    <div class="info">some text</div>
+                    <div class="info">you will often benefit from reducing the number of requested vCPUs as the hypervisor is better at
+                        sharing small pieces of processor more frequently than a large piece of processor for longer periods.</div>
                 </td>
                 </tr>
                 <tr>
@@ -80,9 +84,9 @@ function CalcTotal(form)
             <td>
                 <input id="ram" maxlength="4" min="1" oninput="CalcTotal(this.form)"
                     onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()" step="1"
-                    style="max-width: 4em;" type="number" value="1" /> GB
+                    style="max-width: 4em;" type="number" value="0" /> GB
             </td>
-            <td nowrap="nowrap" valign="right">$ <span id="ram_val">6</span></td>
+            <td nowrap="nowrap" align="right">$ <span id="ram_val">0</span></td>
             <td width="50%">
                 <div class="info">some text</div>
             </td>
@@ -94,7 +98,7 @@ function CalcTotal(form)
                     onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()" size="4"
                     style="max-width: 4em;" type="number" value="" /> GB
             </td>
-            <td nowrap="nowrap" valign="right">$ <span id="disk_std_val">0.00</span></td>
+            <td nowrap="nowrap" align="right">$ <span id="disk_std_val">0.00</span></td>
             <td width="50%">
                 <div class="info">some text</div>
             </td>
@@ -102,13 +106,14 @@ function CalcTotal(form)
         <tr>
             <td valign="middle">Storage (Archive Tier):</td>
             <td>
-                <input id="diskHigh" maxlength="4" min="1" oninput="CalcTotal(this.form)"
+                <input id="diskArch" maxlength="4" min="1" oninput="CalcTotal(this.form)"
                     onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()" size="4"
                     style="max-width: 4em;" type="number" value="" /> GB
             </td>
-            <td nowrap="nowrap" valign="right">$ <span id="disk_high_val">0.00</span></td>
+            <td nowrap="nowrap" align="right">$ <span id="disk_arch_val">0.00</span></td>
             <td width="50%">
-                <div class="info">some text</div>
+                <div class="info">Archive Tier storage should be used for infrequently accessed static data. This tier is presented as
+                    NFS and backed by AWS' S3 Storage.</div>
             </td>
         </tr>
         <tr>
@@ -116,14 +121,19 @@ function CalcTotal(form)
                 <div class="tableheader"></div>
                 </div>
             </td>
-            </tr>
-            <tr>
+        </tr>
+        <div class="price">
+        <tr>
             <th align="left" valign="middle" colspan="2">Monthly Virtual Server Cost:</th>
-            <td nowrap="nowrap" valign="right">$ <span id="total_month_val">55.00</span></th>
+            <td nowrap="nowrap" align="right">
+                <div class="price">$ <span id="total_month_val">55.00</span></div>
+                </th>
                 </tr>
                 <tr>
                     <th align="left" valign="middle" colspan="2">Annual Virtual Server Cost:</th>
-                    <td nowrap="nowrap" valign="right">$ <span id="total_val">660.00</span></th>
+            <td nowrap="nowrap" align="right">
+                <div class="price">$ <span id="total_val">660.00</span></div>
+                </th>
                 </tr>
                 </tbody>
                 </table>
@@ -149,14 +159,19 @@ function CalcTotal(form)
     </tr>
     <tr>
         <td>
+            Windows starts with two disks. "C:" is reserved for the operating system. "E:" is specific to the application and can be
+            expanded if needed.
             <ul>
                 <li>C: 80GB (reserved for OS)</li>
                 <li>E: 20GB (initial size for application volume)</li>
             </ul>
         </td>
         <td>
+            Linux disks start with 2 logical volumes. vg_root is reserved for the OS, vg_app is specific to the application and can
+            be expanded if needed.
             <ul>
-                <li>/ 40GB</li>
+                <li>vg_root: 50GB</li>
+                <li>vg_app: 20GB</li>
             </ul>
         </td>
     </tr>
