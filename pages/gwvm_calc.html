@@ -6,7 +6,7 @@
         // Mem - .51 / GB / mo
 
         //Disk Space & RAM ========
-        var diskStdVal = (form.diskStd.value * 0.10);
+                                                        var diskStdVal = (form.diskStd.value * 1.00);
                                                     var ramVal = (form.ram.value * 0.51);
                                                     var diskArchVal = (form.diskArch.value * 0.05);
                                                     document.getElementById('disk_std_val').innerHTML = diskStdVal.toFixed(2);
@@ -100,7 +100,8 @@
             </td>
             <td nowrap="nowrap" align="right">$ <span id="disk_std_val">0.00</span></td>
             <td width="50%">
-                <div class="info">some text</div>
+                <div class="info">Standard Tier storage is used by the OS and any Applications. This price also includes VM backup
+                    storage</div>
             </td>
         </tr>
         <tr>
@@ -126,13 +127,13 @@
         <tr>
             <th align="left" valign="middle" colspan="2">Monthly Virtual Server Cost:</th>
             <td nowrap="nowrap" align="right">
-                <div class="price">$ <span id="total_month_val">55.00</span></div>
+                <div class="price">$ <span id="total_month_val">0.00</span></div>
                 </th>
                 </tr>
                 <tr>
                     <th align="left" valign="middle" colspan="2">Annual Virtual Server Cost:</th>
             <td nowrap="nowrap" align="right">
-                <div class="price">$ <span id="total_val">660.00</span></div>
+                <div class="price">$ <span id="total_val">0.00</span></div>
                 </th>
                 </tr>
                 </tbody>
