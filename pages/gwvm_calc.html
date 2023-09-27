@@ -7,18 +7,18 @@
 
         //Disk Space & RAM ========
                                                         var diskStdVal = (form.diskStd.value * 0.20);
-                                                        var ramVal = (form.ram.value * 0.50);
+                                                        var ramVal = (form.ram.value * 0.40);
                                                     var diskArchVal = (form.diskArch.value * 0.05);
                                                     document.getElementById('disk_std_val').innerHTML = diskStdVal.toFixed(2);
                                                     document.getElementById('disk_arch_val').innerHTML = diskArchVal.toFixed(2);
                                                     document.getElementById('ram_val').innerHTML = ramVal.toFixed(2);
         //Cpu ========
         var cpuCosts = {
-            '1': 5.25,
-            '2': 10.50,
-            '4': 21,
-            '8': 42,
-            '16': 84
+            '1': 6.25,
+            '2': 12.50,
+            '4': 25,
+            '8': 50,
+            '16': 100
         }
         var cpuVal = cpuCosts[form.cpu.value]
         document.getElementById('cpu_val').innerHTML = cpuVal;
