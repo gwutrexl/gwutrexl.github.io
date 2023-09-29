@@ -14,11 +14,11 @@
                                                     document.getElementById('ram_val').innerHTML = ramVal.toFixed(2);
         //Cpu ========
         var cpuCosts = {
-            '1': 6.25,
-            '2': 12.50,
-            '4': 25,
-            '8': 50,
-            '16': 100
+            '1': 6,
+            '2': 12,
+            '4': 24,
+            '8': 48,
+            '16': 96
         }
         var cpuVal = cpuCosts[form.cpu.value]
         document.getElementById('cpu_val').innerHTML = cpuVal;
@@ -72,7 +72,8 @@
                     </select>
                 </td>
                 <td nowrap="nowrap" align="right">
-                    $ <span id="cpu_val">6.25</span>
+                    $ <span id="cpu_val">6
+                    </span>
                 </td>
                 <td>
                     <div class="info">you will often benefit from reducing the number of requested vCPUs as the hypervisor is better at
