@@ -102,5 +102,5 @@ The George Washington University Washington, D.C.
 
 Bachelor of Science, Computer Science May, 2001
 
-![example branch parameter.](https://github.com/mona/special-octo-eureka/actions/workflows/grading.yml/badge.svg)
+![main](https://github.com/mona/special-octo-eureka/actions/workflows/grading.yml/badge.svg?branch=main)
 
