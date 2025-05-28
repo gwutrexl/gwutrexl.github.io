@@ -1,17 +1,19 @@
 <script language="javascript" type="text/javascript">
-                                                    function CalcTotal(form) {
-                                                        // disk standard tier - .20 / GB / mo
+            function CalcTotal(form) {
+            // disk standard tier - .20 / GB / mo
         // disk archive tier - .05/ GB / mo
-                                                        // CPU - 6.25 / vcpu / mo
-                                                        // Mem - .40 / GB / mo
+            // CPU - 6.25 / vcpu / mo
+            // Mem - .40 / GB / mo
 
         //Disk Space & RAM ========
-                                                        var diskStdVal = (form.diskStd.value * 0.20);
-                                                        var ramVal = (form.ram.value * 0.40);
-                                                    var diskArchVal = (form.diskArch.value * 0.05);
-                                                    document.getElementById('disk_std_val').innerHTML = diskStdVal.toFixed(2);
-                                                    document.getElementById('disk_arch_val').innerHTML = diskArchVal.toFixed(2);
-                                                    document.getElementById('ram_val').innerHTML = ramVal.toFixed(2);
+            var diskStdVal = (form.diskStd.value * 0.20);
+            var ramVal = (form.ram.value * 0.40);
+            var diskArchVal = (form.diskArch.value * 0.05);
+            var hvVal = (form.hv.value * 35.00);
+            document.getElementById('disk_std_val').innerHTML = diskStdVal.toFixed(2);
+            document.getElementById('disk_arch_val').innerHTML = diskArchVal.toFixed(2);
+            document.getElementById('ram_val').innerHTML = ramVal.toFixed(2);
+            document.getElementById('hv_val').innerHTML = hvVal.toFixed(2);
         //Cpu ========
         var cpuCosts = {
             '1': 6,
@@ -23,18 +25,34 @@
         var cpuVal = cpuCosts[form.cpu.value]
         document.getElementById('cpu_val').innerHTML = cpuVal;
 
+            var osCosts = {
+                'Windows': 5,
+                'Linux': 3,
+                'Appliance': 0
+            }
+            var osVal = osCosts[form.os.value]
+            document.getElementById('os_val').innerHTML = osVal;
+
 
         // //Ram =====
         // var ramVal = form.ram.value < 2 ? 6 : (form.ram.value * 6) - 6
         // document.getElementById('ram_val').innerHTML = ramVal;
 
         //Total Monthly Value ==========
-                                                    var totalMonthVal = cpuVal + ramVal + diskStdVal + diskArchVal
-                                                    document.getElementById('total_month_val').innerHTML = totalMonthVal.toFixed(2)
+            var totalMonthVal = cpuVal + ramVal + diskStdVal + diskArchVal + osVal + hvVal;
+            var totalHardwareMonthVal = cpuVal + ramVal + diskStdVal + diskArchVal;
+            var totalSoftwareMonthVal = osVal + hvVal;
+            document.getElementById('total_month_val').innerHTML = totalMonthVal.toFixed(2)
         //Total Value ==========
-                                                    document.getElementById('total_val').innerHTML = (totalMonthVal * 12).toFixed(2)
+            document.getElementById('total_val').innerHTML = (totalMonthVal * 12).toFixed(2)
+            document.getElementById('total_hardware_month_val').innerHTML = totalHardwareMonthVal.toFixed(2)
+            document.getElementById('total_hardware_val').innerHTML = (totalHardwareMonthVal * 12).toFixed(2)
+            document.getElementById('total_software_month_val').innerHTML = totalSoftwareMonthVal.toFixed(2)
+            document.getElementById('total_software_val').innerHTML = (totalSoftwareMonthVal * 12).toFixed(2)
+        
+
     }
-    
+
     function noenter() {
         return !(window.event && window.event.keyCode == 13);
     }
@@ -42,6 +60,7 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
 <head>
     <title>GWIT UNOFFICIAL Virtual Server Cost Calculator</title>
     <link rel="stylesheet" href="simplestyle.css">
@@ -49,99 +68,164 @@
 
 <body>
 
-<div class="header">
-    <b></b>GWIT Unofficial Virtual Server Cost Calculator</b>
-</div>
+    <div class="header">
+        <b></b>GWIT Unofficial Virtual Server Cost Calculator</b>
+    </div>
 
-<form name="form1" onsubmit="">
-<table border="1">
-    <tbody>
-        <tr>
-            <th colspan=4 align="left" valign="middle">
-                <div class="tableheader">Server Size</div>
-            </th>
-            </tr>
-            <tr>
-            <td>vCPU</td>
-            <td><select name="cpu" onchange="CalcTotal(this.form)" onkeypress="return noenter()">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="4">4</option>
-                    <option value="8">8</option>
-                    <option value="16">16</option>
-                    </select>
-                </td>
-                <td nowrap="nowrap" align="right">
-                    $ <span id="cpu_val">6
-                    </span>
-                </td>
-                <td>
-                    <div class="info">you will often benefit from reducing the number of requested vCPUs as the hypervisor is better at
-                        sharing small pieces of processor more frequently than a large piece of processor for longer periods.</div>
-                </td>
+    <form name="form1" onsubmit="">
+        <table border="1">
+            <tbody>
+                <tr>
+                    <th colspan=4 align="left" valign="middle">
+                        <div class="tableheader">Server Size</div>
+                    </th>
+                </tr>
+<tr>
+    <td>Server Operating System</td>
+    <td><select name="os" onchange="CalcTotal(this.form)" onkeypress="return noenter()">
+            <option value="Windows">Windows</option>
+            <option value="Linux">Linux</option>
+            <option value="Appliance">Appliance</option>
+        </select>
+    </td>
+    <td nowrap="nowrap" align="right">
+        $ <span id="os_val">0
+        </span>
+    </td>
+    <td>
+        <div class="info">Selected OS.</div>
+    </td>
+</tr>
+
+                <tr>
+                    <td>vCPU</td>
+                    <td><select name="cpu" onchange="CalcTotal(this.form)" onkeypress="return noenter()">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="8">8</option>
+                            <option value="16">16</option>
+                        </select>
+                    </td>
+                    <td nowrap="nowrap" align="right">
+                        $ <span id="cpu_val">6
+                        </span>
+                    </td>
+                    <td>
+                        <div class="info">you will often benefit from reducing the number of requested vCPUs as the
+                            hypervisor is better at
+                            sharing small pieces of processor more frequently than a large piece of processor for longer
+                            periods.</div>
+                        </td>
                 </tr>
                 <tr>
-            <td valign="middle">RAM</td>
-            <td>
-                <input id="ram" maxlength="4" min="1" oninput="CalcTotal(this.form)"
-                    onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()" step="1"
-                    style="max-width: 4em;" type="number" value="0" /> GB
-            </td>
-            <td nowrap="nowrap" align="right">$ <span id="ram_val">0</span></td>
-            <td width="50%">
-                <div class="info">You might not need as much as the vendor demands.</div>
-            </td>
-        </tr>
-        <tr>
-            <td valign="middle">Storage (Standard Tier):</td>
-            <td>
-                <input id="diskStd" maxlength="4" min="1" oninput="CalcTotal(this.form)"
-                    onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()" size="4"
-                    style="max-width: 4em;" type="number" value="" /> GB
-            </td>
-            <td nowrap="nowrap" align="right">$ <span id="disk_std_val">0.00</span></td>
-            <td width="50%">
-                <div class="info">Standard Tier storage is used by the OS and any Applications. This price also includes VM backup
-                    storage</div>
-            </td>
-        </tr>
-        <tr>
-            <td valign="middle">Storage (Archive Tier):</td>
-            <td>
-                <input id="diskArch" maxlength="4" min="1" oninput="CalcTotal(this.form)"
-                    onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()" size="4"
-                    style="max-width: 4em;" type="number" value="" /> GB
-            </td>
-            <td nowrap="nowrap" align="right">$ <span id="disk_arch_val">0.00</span></td>
-            <td width="50%">
-                <div class="info">Archive Tier storage should be used for infrequently accessed static data. This tier is presented as
-                    NFS and backed by AWS' S3 Storage.</div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <div class="tableheader"></div>
-                </div>
-            </td>
-        </tr>
-        <div class="price">
-        <tr>
-            <th align="left" valign="middle" colspan="2">Monthly Virtual Server Hardware Cost:</th>
-            <td nowrap="nowrap" align="right">
-                <div class="price">$ <span id="total_month_val">0.00</span></div>
-                </th>
+                    <td valign="middle">RAM</td>
+                    <td>
+                        <input id="ram" maxlength="4" min="1" oninput="CalcTotal(this.form)"
+                            onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()"
+                            step="1" style="max-width: 4em;" type="number" value="0" /> GB
+                    </td>
+                    <td nowrap="nowrap" align="right">$ <span id="ram_val">0</span></td>
+                    <td width="50%">
+                        <div class="info">You might not need as much as the vendor demands.</div>
+                    </td>
                 </tr>
                 <tr>
-                    <th align="left" valign="middle" colspan="2">Annual Virtual Server Hardware Cost:</th>
-            <td nowrap="nowrap" align="right">
-                <div class="price">$ <span id="total_val">0.00</span></div>
-                </th>
-                </tr>
-                </tbody>
-                </table>
-                </div>
+                    <td valign="middle">Storage (Standard Tier):</td>
+                    <td>
+                        <input id="diskStd" maxlength="4" min="1" oninput="CalcTotal(this.form)"
+                            onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()"
+                            size="4" style="max-width: 4em;" type="number" value="" /> GB
+                    </td>
+                    <td nowrap="nowrap" align="right">$ <span id="disk_std_val">0.00</span></td>
+                    <td width="50%">
+                        <div class="info">Standard Tier storage is used by the OS and any Applications. This price also
+                            includes VM backup
+                            storage</div>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td valign="middle">Storage (Archive Tier):</td>
+                            <td>
+                                <input id="diskArch" maxlength="4" min="1" oninput="CalcTotal(this.form)"
+                            onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57 &amp;&amp; noenter()"
+                            size="4" style="max-width: 4em;" type="number" value="" /> GB
+                    </td>
+                    <td nowrap="nowrap" align="right">$ <span id="disk_arch_val">0.00</span></td>
+                    <td width="50%">
+                        <div class="info">Archive Tier storage should be used for infrequently accessed static data.
+                            This tier is presented as
+                            NFS and backed by AWS' S3 Storage.</div>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td valign="middle">HypverVisor:</td>
+                        <td>
+                            <input type=hidden id="hv" oninput="CalcTotal(this.form)" type="number" value="1" />
+                            VSphere Cloud Foundation
+                        </td>
+                        <td nowrap="nowrap" align="right">$ <span id="hv_val">0.00</span></td>
+                        <td width="50%">
+                            <div class="info">No choices here, this is the hypervisor that GWIT uses for all virtual
+                                servers.</div>
+
+                    </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="tableheader"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <div class="price">
+                        <tr>
+                        <th align="left" valign="middle" colspan="2">Monthly Virtual Server Cost:</th>
+                        <td nowrap="nowrap" align="right">
+                            <div class="price">$ <span id="total_month_val">0.00</span></div>
+                            </th>
+                            </tr>
+                            <tr>
+                        <th align="left" valign="middle" colspan="2">Annual Virtual Server Cost:</th>
+                        <td nowrap="nowrap" align="right">
+                            <div class="price">$ <span id="total_val">0.00</span></div>
+                            </th>
+                            </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="tableheader"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th align="left" valign="middle" colspan="2">Monthly Hardware Cost:</th>
+                        <td nowrap="nowrap" align="right">
+                            <div class="price">$ <span id="total_hardware_month_val">0.00</span></div>
+                            </th>
+                    </tr>
+                    <tr>
+                        <th align="left" valign="middle" colspan="2">Annual Hardware Cost:</th>
+                        <td nowrap="nowrap" align="right">
+                            <div class="price">$ <span id="total_hardware_val">0.00</span></div>
+                            </th>
+                    </tr>
+                    <th align="left" valign="middle" colspan="2">Monthly Software Cost:</th>
+                    <td nowrap="nowrap" align="right">
+                        <div class="price">$ <span id="total_software_month_val">0.00</span></div>
+                        </th>
+                        </tr>
+                        <tr>
+                            <th align="left" valign="middle" colspan="2">Annual Software Cost:</th>
+                            <td nowrap="nowrap" align="right">
+                                <div class="price">$ <span id="total_software_val">0.00</span></div>
+                                </th>
+                        </tr>
+
+            </tbody>
+            </table>
+            </div>
     </form>
-    
+
     <hr />
     <div class="info">
         A standard server includes
@@ -150,47 +234,51 @@
             <li>Standard Tier Storage Backups</li>
             <li>Techincal Assistance with OS</li>
         </ul>
-        <a href="https://gwu-dit.atlassian.net/wiki/spaces/PCC/pages/3686662177/On-Premises+Virtual+Machine+Calculator">Link to
+        <a href="https://gwu-dit.atlassian.net/wiki/spaces/PCC/pages/3686662177/On-Premises+Virtual+Machine+Calculator">Link
+            to
             fuller documentation</a> (GWU Confluence - login required)
     </div>
 
-<hr/>
-<div class="info">
-<p><strong>To help you with your disk sizing:</strong></p>
-<table border="1" width="100%">
-    <tr>
-        <th width="50%">Windows Standard</th>
-        <th width="50%">Linux Standard</th>
-    </tr>
-    <tr>
-        <td>
-            Windows starts with two disks. "C:" is reserved for the operating system. "E:" is specific to the application and can be
-            expanded if needed.
-            <ul>
-                <li>C: 80GB (reserved for OS)</li>
-                <li>E: 20GB (initial size for application volume)</li>
-            </ul>
-        </td>
-        <td>
-            Linux disks start with 2 logical volumes. vg_root is reserved for the OS, vg_app is specific to the application and can
-            be expanded if needed.
-            <ul>
-                <li>vg_root: 50GB</li>
-                <li>vg_app: 20GB</li>
-            </ul>
-        </td>
-    </tr>
-</table>
-</div>
+    <hr />
+    <div class="info">
+        <p><strong>To help you with your disk sizing:</strong></p>
+        <table border="1" width="100%">
+            <tr>
+                <th width="50%">Windows Standard</th>
+                <th width="50%">Linux Standard</th>
+            </tr>
+            <tr>
+                <td>
+                    Windows starts with two disks. "C:" is reserved for the operating system. "E:" is specific to the
+                    application and can be
+                    expanded if needed.
+                    <ul>
+                        <li>C: 80GB (reserved for OS)</li>
+                        <li>E: 20GB (initial size for application volume)</li>
+                    </ul>
+                    </td>
+                    <td>
+                    Linux disks start with 2 logical volumes. vg_root is reserved for the OS, vg_app is specific to the
+                    application and can
+                    be expanded if needed.
+                    <ul>
+                        <li>vg_root: 50GB</li>
+                        <li>vg_app: 20GB</li>
+                    </ul>
+                    </td>
+                    </tr>
+                    </table>
+                    </div>
 
-<div class="footer">
-    Disclaimer: Any costs generated by the use of this tool are for estimation only and subject to change
-    <br />
-    Credit: This tool is nearly identical to the one created by <a
-        href="https://its.ucsc.edu/data-center/vmcalc.html">UCSC</a>.
-    <br />
-    While the page doesn't seem to exist anymore, my
-    gratitude will never respond with a 404 error.
-</div>
+    <div class="footer">
+        Disclaimer: Any costs generated by the use of this tool are for estimation only and subject to change
+        <br />
+        Credit: This tool is nearly identical to the one created by <a
+            href="https://its.ucsc.edu/data-center/vmcalc.html">UCSC</a>.
+        <br />
+        While the page doesn't seem to exist anymore, my
+        gratitude will never respond with a 404 error.
+    </div>
 </body>
+
 </html>
