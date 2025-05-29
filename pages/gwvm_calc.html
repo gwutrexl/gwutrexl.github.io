@@ -83,9 +83,9 @@
 <tr>
     <td>Server Operating System</td>
     <td><select name="os" onchange="CalcTotal(this.form)" onkeypress="return noenter()">
+            <option value="Appliance">Appliance</option>
             <option value="Windows">Windows</option>
             <option value="Linux">Linux</option>
-            <option value="Appliance">Appliance</option>
         </select>
     </td>
     <td nowrap="nowrap" align="right">
@@ -93,7 +93,8 @@
         </span>
     </td>
     <td>
-        <div class="info">Selected OS.</div>
+        <div class="info">For this you get Windows Server 2022, EL 8/9, or a vendor supplied appliance that includes its own
+            licensing.</div>
     </td>
 </tr>
 
@@ -166,8 +167,7 @@
                         </td>
                         <td nowrap="nowrap" align="right">$ <span id="hv_val">0.00</span></td>
                         <td width="50%">
-                            <div class="info">No choices here, this is the hypervisor that GWIT uses for all virtual
-                                servers.</div>
+                            <div class="info">VMware's VSphere Cloud Foundation is the hypervisor used in our enterprise environment.</div>
 
                     </td>
                     </tr>
