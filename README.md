@@ -1,10 +1,8 @@
 # John Hurst
 
-```text
-linkedin: linkedin.com/in/johnfhurst
-email: trexl@gwu.edu
-github: gwutrexl
-```
+- [linkedin: johnfhurst](https://linkedin.com/in/johnfhurst)
+- [email: trexl@gwu.edu](mailto:trexl@gwu.edu)
+- [github: gwutrexl](https://github.com/gwutrexl)
 
 **Summary**
 
@@ -87,10 +85,14 @@ Systems Engineering Services, GWIT The George Washington University
 - As a senior student employee I began to manage Linux web servers(apache) that provided a
     platform for the division’s web developers
 
-**Professional Certifications**
+**Professional Certification History**
 
-- HashiCorp Certified: Terraform Associate (Jul 2020 - current)
-- AWS Certified Cloud Practitioner (Nov 2019 - current)
+- [Educause New Managers Institute](https://www.credly.com/badges/e412e1ce-ff67-403d-9f3a-69489f83afcf/public_url)
+- [GitHub Actions](https://www.credly.com/badges/f274d10b-004a-4987-bb91-8eddad64f22a/public_url)
+- [GitHub Administration](https://www.credly.com/badges/a1fdbd90-4d8e-4834-8e44-465384c80f3a/public_url)
+- [GitHub Foundations](https://www.credly.com/badges/7488c25d-4def-4e5a-9fa7-4edc578f4a84/public_url)
+- [Terraform Associate](https://www.credly.com/badges/2a0ba324-4cc6-40ba-a4f6-f4db56a36cce/public_url)
+- [AWS Certified Cloud Practitioner](https://www.credly.com/badges/aa3ab17b-4f07-4ce1-9186-ec5eb3e60349/public_url)
 - Red Hat Certified Engineer training(May 2016 - May 2019)
 - Red Hat Certified System Administrator (May 2012 - May 2019)
 - ITIL v3 Foundations Certified
@@ -102,5 +104,4 @@ The George Washington University Washington, D.C.
 
 Bachelor of Science, Computer Science May, 2001
 
-![main](https://github.com/mona/special-octo-eureka/actions/workflows/grading.yml/badge.svg?branch=main)
 
