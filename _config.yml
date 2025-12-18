@@ -1,5 +1,13 @@
-theme: jekyll-theme-modernist
-title: John F. Hurst
-description: gwutrexl.github.io
+title: John @ GWU
+email: trexl@gwu.edu
+description: >-
+  A place where I'll share thoughts on things that might help others,
+  because I either wasn't taught ... or might not have been listening
 show_downloads: false
-logo: /images/serverroomJohn.jpg
+url: "https://gwutrexl.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+#twitter_username: jekyllrb
+github_username: gwutrexl
+
+theme: minima
+plugins:
+  - jekyll-feed
