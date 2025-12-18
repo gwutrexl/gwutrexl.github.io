@@ -1,4 +1,8 @@
-# John Hurst
+---
+layout: page
+title: John Hurst | A Resume
+permalink: /resume/
+---
 
 - [linkedin: johnfhurst](https://linkedin.com/in/johnfhurst)
 - [email: trexl@gwu.edu](mailto:trexl@gwu.edu)
